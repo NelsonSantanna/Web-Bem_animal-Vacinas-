@@ -1,0 +1,220 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+h1,
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  line-height: 1.5;
+}
+
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+/* Header styles */
+header {
+  background-color: #1e5e28;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  margin: 0;
+  color: white;
+}
+
+header form {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+header input[type="text"] {
+  width: 300px;
+  margin-left: 50px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  background-color: #1e6931;
+}
+
+/* Main styles */
+main {
+  margin: 100px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+main section {
+  margin-bottom: 30px;
+}
+
+/* Register form styles */
+.register-form {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.register-form button[type="submit"] {
+  background-color: #1b7a43;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.register-form button[type="submit"]:hover {
+  background-color: #1e6d3f;
+}
+
+/* Navigation styles */
+nav {
+  background-color: #f2f2f2;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  height: 80px;
+}
+
+nav button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+nav button:hover {
+  background-color: #333;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  header input[type="text"] {
+    width: 200px;
+    margin-left: 10px;
+  }
+
+  nav button {
+    height: 40px;
+  }
+
+  .taskbar a {
+    font-size: 0.9rem;
+  }
+
+  .taskbar i {
+    font-size: 1rem;
+  }
+
+  form {
+    width: 100vw;
+    margin: 0;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px 0;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header input[type="text"] {
+    margin: 5px 0;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .taskbar {
+    position: relative;
+    height: auto;
+    z-index: 1;
+  }
+
+  .taskbar a {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+  }
+
+  .taskbar i {
+    margin-right: 5px;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  section {
+    padding: 20px;
+  }
+}
