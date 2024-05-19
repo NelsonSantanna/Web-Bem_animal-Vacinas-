@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Responsáveis</title>
+</head>
+<body>
+    <h1>Consulta de Responsáveis</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Pet</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for responsavel in responsaveis %}
+                <tr>
+                    <td>{{ responsavel[1] }}</td> <!-- a primeira coluna é o ID -->
+                    <td>{{ responsavel[2] }}</td>
+                    <td>{{ responsavel[3] }}</td>
+                    <td>{{ responsavel[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', id=responsavel[0]) }}">Editar</a>
+                        <a href="{{ url_for('delete', id=responsavel[0]) }}">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}">Voltar ao Início</a>
+    {% if session['logged_in'] %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+</body>
+</html>

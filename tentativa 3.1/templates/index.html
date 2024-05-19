@@ -1,41 +1,58 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>BEM ANIMAL</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  </head>
-  <body>
-    <header>
-      <div id="title-container">
-        <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
-        <h1>BEM ANIMAL</h1>
-        <p>
-          {% if message %}
-            Seja bem-vindo, {{ message[0]['username'] }}
-          {% else %}
-            Seja bem-vindo, usuário
-          {% endif %}
-        </p>
+
+<head>
+  <title>BEM ANIMAL</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    <div id="title-container">
+      <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
+      <h1>BEM ANIMAL</h1>
+      <!--<p>
+        {% if message %}
+        Seja bem-vindo, {{ message[0]['username'] }}
+        {% else %}
+        Seja bem-vindo, usuário
+        {% endif %}
+      </p>
+    -->
+    
+    </form>
+    <div class="taskbar">
+      <a href="#" style="color: white"><i class="fas fa-map-marker-alt"></i>LOCALIZAÇÕES DE POSTOS</a>
+      <a href="{{ url_for('register') }}"style="color: white"><i class="fas fa-user-plus"></i>CADASTRAR</a>
+      <!--<a href="{{ url_for('login') }}"style="color: white"><i class="fas fa-sign-in-alt"></i>LOGIN</a>-->
+      {% if error %}
+          <p style="color:red;">{{ error }}</p>
+      {% endif %}
+      {% if session['logged_in'] %}
+          <a href="{{ url_for('logout') }}"style="color: white"><i class="fas fa-sign-in-alt">Logout</a>
+      {% else %}
+          <a href="{{ url_for('login') }}"style="color: white"><i class="fas fa-sign-in-alt">Login</a>
+      {% endif %} 
+      <a href="{{ url_for('consulta') }}"style="color: white"><i class="fas fa-sign-in-alt"></i>CONSULTA</a> 
+     <!-- <h1>Bem-vindo, {{ message }}!</h1>-->
+      
       </div>
       <form>
-        <input type="text" placeholder="Pesquisar...">
-      </form>
-      <div class="taskbar">
-        <a href="#"><i class="fas fa-map-marker-alt"></i>LOCALIZAÇÕES DE POSTOS</a>
-        <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i>CADASTRAR</a>
-        <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
-      </div>
-    </header>
-    <main>
-      <section>
-        <h2>BEM-VINDO</h2>
-        <p>Aqui você pode encontrar as localizações de postos de vacinação mais próximas de você.</p>
-      </section>
-      <section>
-        <h2>Por que é importante vacinar seu animal de estimação?</h2>
-        <p>Vacinar seu animal de estimação é importante para protegê-lo contra doenças graves e manter sua saúde.</p>
-      </section>
-    </main>
-  </body>
+        <input type="text" placeholder="Pesquisar..."> 
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>BEM-VINDO</h2>
+      <p>Aqui você pode encontrar as localizações de postos de vacinação mais próximas de você.</p>
+    </section>
+    <section>
+      <h2>Por que é importante vacinar seu animal de estimação?</h2>
+      <p>Vacinar seu animal de estimação é importante para protegê-lo contra doenças graves e manter sua saúde.</p>
+    </section>
+  </main>
+</body>
+
 </html>
