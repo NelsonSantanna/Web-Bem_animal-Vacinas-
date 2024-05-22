@@ -1,13 +1,25 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Responsáveis</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <div class="image-container"  > 
+        <title>Consulta de Responsáveis</title>
+        <img  class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL" aling="middle">
+    </div>
+
 </head>
+
 <body>
+    <div class="consulta-container">
+
     <h1>Consulta de Responsáveis</h1>
-    <table border="1">
+</div>
+       <table border="1" >
         <thead>
             <tr>
                 <th>Nome</th>
@@ -19,22 +31,25 @@
         </thead>
         <tbody>
             {% for responsavel in responsaveis %}
-                <tr>
-                    <td>{{ responsavel[1] }}</td> <!-- a primeira coluna é o ID -->
-                    <td>{{ responsavel[2] }}</td>
-                    <td>{{ responsavel[3] }}</td>
-                    <td>{{ responsavel[4] }}</td>
-                    <td>
-                        <a href="{{ url_for('edit', id=responsavel[0]) }}">Editar</a>
-                        <a href="{{ url_for('delete', id=responsavel[0]) }}">Excluir</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ responsavel[1] }}</td> <!-- a primeira coluna é o ID -->
+                <td>{{ responsavel[2] }}</td>
+                <td>{{ responsavel[3] }}</td>
+                <td>{{ responsavel[4] }}</td>
+                <td>
+                    <a href="{{ url_for('edit', id=responsavel[0]) }}">Editar</a>
+                    <a href="{{ url_for('delete', id=responsavel[0]) }}">Excluir</a>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
+    </form>
     <a href="{{ url_for('index') }}">Voltar ao Início</a>
     {% if session['logged_in'] %}
-        <a href="{{ url_for('logout') }}">Logout</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
+ 
 </body>
+
 </html>

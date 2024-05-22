@@ -8,7 +8,7 @@
 /* Global styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+  background-color: #1e5e28;
 }
 
 h1,
@@ -77,14 +77,150 @@ main section {
   margin-bottom: 30px;
 }
 
-/* Register form styles */
-.register-form {
+main h1{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+/* Table Styles */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  margin: auto;
+
+}
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.consulta-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #1e5e28;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+/* Link Styles */
+a {
+  color: #1e5e28;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #1e5e28;
+}
+
+a:hover {
+  background-color: #1e5e28;
+  color: white;
+}
+
+
+
+/* login form styles */
+.login-form {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+.login-form button[type="submit"] {
+  background-color: #1b7a43;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  width: 30%;
+}
+
+.login-form button[type="submit"]:hover {
+  background-color: #1e6d3f;
+}
+
+/* edit form styles */
+
+.edit-fom{
   margin: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+
+.edit-form {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.edit-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form input[type="password"] {
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+.edit-form button[type="submit"] {
+  background-color: #1b7a43;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  width: 30%;
+}
+
+.edit-form button[type="submit"]:hover {
+  background-color: #1e6d3f;
+}
+
+/* Register form styles */
 .register-form label {
   display: block;
   margin-bottom: 0.5rem;
@@ -97,7 +233,7 @@ main section {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 1rem;
-  width: 100%;
+  width: 50%;
 }
 
 .register-form button[type="submit"] {
@@ -107,7 +243,7 @@ main section {
   padding: 0.5rem;
   cursor: pointer;
   margin-bottom: 1rem;
-  width: 100%;
+  width: 10%;
 }
 
 .register-form button[type="submit"]:hover {

@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Responsável</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+    <div class="image-container"  > 
+    <img  class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL" >
+    </div>
+    <main class="register-container">
     <h1>Registrar Responsável</h1>
-    <form method="post">
+    <form class="register-form" method="POST" action="/register">
         <label for="nome">Nome proprietário:</label>
         <input type="text" id="nome" name="nome" required>
         <br>
@@ -24,15 +29,9 @@
         <button type="submit">Registrar</button>
     </form>
     <a href="{{ url_for('index') }}">Voltar ao Início</a>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    
+    
+    </main>
 </body>
 </html>
 
