@@ -31,9 +31,9 @@
           <p style="color:red;">{{ error }}</p>
       {% endif %}
       {% if session['logged_in'] %}
-          <a href="{{ url_for('logout') }}"style="color: white"><i class="fas fa-sign-in-alt">Logout</a>
+          <a href="{{ url_for('logout') }}"style="color: white"><i >Logout</a>
       {% else %}
-          <a href="{{ url_for('login') }}"style="color: white"><i class="fas fa-sign-in-alt">Login</a>
+          <a href="{{ url_for('login') }}"style="color: white"><i >Login</a>
       {% endif %} 
       <a href="{{ url_for('consulta') }}"style="color: white"><i class="fas fa-sign-in-alt"></i>CONSULTA</a> 
      <!-- <h1>Bem-vindo, {{ message }}!</h1>-->
