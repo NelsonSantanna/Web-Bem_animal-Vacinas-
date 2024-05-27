@@ -36,7 +36,7 @@ def read_responsavel():
     return responsavel
 
 def write_responsavel(responsavel):
-    print(responsavel)
+    #print(responsavel)
     connection = create_connection()
     query = "INSERT INTO responsavel (nome, pet, telefone, email) VALUES (%s, %s, %s, %s)" #removi password (%s)
     cursor = connection.cursor()

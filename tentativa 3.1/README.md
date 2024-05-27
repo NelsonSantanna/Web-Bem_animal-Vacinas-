@@ -1,4 +1,13 @@
+
+
+
 # Projeto  Web Site para cadastro de Usuarios e quantidade de Pets com Python, Flask e MySQL.
+
+
+
+
+
+
 * Criei um arquivo "requirements.txt" para gerenciamento de dependencias https://www.freecodecamp.org/news/python-requirementstxt-explained/
 * Corrigi o método POST criando a variável responsável dentro de uma tupla ao invés de um objeto, também aproveitei para
 adicionar o campo senha que estava faltando
@@ -13,4 +22,6 @@ adicionar o campo senha que estava faltando
 * Alterei o template login para acertar o login e logout do site 
 * Adicionei botão login/logout no template index.html e template edit.html
 * Criei a verificação de sessão para que os dados seja exibidos e editados apenas quando o usuário estiver logado 
-
+* Padronização das paginas Consulta, Edit, Login e Register 
+* Atulaização codigo para BD
+* Alterei o Link de localização de postaos de vacinação para avrin em nova guia 
