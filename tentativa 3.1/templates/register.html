@@ -8,30 +8,65 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="image-container"  > 
-    <img  class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL" >
+
+    <div class="image-container"> 
+        <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
     </div>
+    
     <main class="register-container">
-    <h1>Registrar Responsável</h1>
-    <form class="register-form" method="POST" action="/register">
-        <label for="nome">Nome proprietário:</label>
-        <input type="text" id="nome" name="nome" required>
-        <br>
-        <label for="pet">Quant. Pets:</label>
-        <input type="text" id="pet" name="pet" required>
-        <br>
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <button type="submit">Registrar</button>
-    </form>
-    <a href="{{ url_for('index') }}">Voltar ao Início</a>
-    
-    
+        <h1>Registrar Responsável</h1>
+        <form class="register-form" id="registerForm" method="POST" action="/register">
+            <label for="nome">Nome proprietário:</label>
+            <input type="text" id="nome" name="nome" required>
+            <br>
+            <label for="pet">Quant. Pets:</label>
+            <input type="text" id="pet" name="pet" required>
+            <br>
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <button type="submit">Registrar</button>
+        </form>
+        <a href="{{ url_for('index') }}">Voltar ao Início</a>
     </main>
+
+    <!-- JavaScript para validação de formulário -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            const nome = document.getElementById('nome').value;
+            const pet = document.getElementById('pet').value;
+            const telefone = document.getElementById('telefone').value;
+            const email = document.getElementById('email').value;
+
+            // Validação de nome e quantidade de pets
+            if (!nome || !pet) {
+                alert('Por favor, preencha o nome do proprietário e a quantidade de pets.');
+                event.preventDefault(); // Impede o envio do formulário
+            }
+
+            // Validação do telefone (mínimo de 10 dígitos e máximo de 11 dígitos para Brasil)
+            if (telefone.length < 10 || telefone.length > 11) {
+                alert('Por favor, insira um número de telefone válido.');
+                event.preventDefault();
+            }
+
+            // Validação de email (verifica se o formato está correto)
+            if (!validateEmail(email)) {
+                alert('Por favor, insira um email válido.');
+                event.preventDefault();
+            }
+        });
+
+        // Função para validar formato de email
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(email);
+        }
+    </script>
+
 </body>
 </html>
 

@@ -8,25 +8,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <body>
   <header>
     <div id="title-container">
       <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
       <h1>BEM ANIMAL</h1>
-      <!--<p>
+      <p>
         {% if message %}
         Seja bem-vindo, {{ message[0]['username'] }}
         {% else %}
         Seja bem-vindo, usuário
         {% endif %}
       </p>
-    -->
+    
     
     
     <div class="taskbar">
       <a href="https://maps.app.goo.gl/29cT3kHnHo6Yv8a68" target="_blank" style="color: white"><i class="fas fa-map-marker-alt"></i>LOCALIZAÇÕES DE POSTOS</a>
       <a href="{{ url_for('register') }}"style="color: white"><i class="fas fa-user-plus"></i>CADASTRAR</a>
-      <!--<a href="{{ url_for('login') }}"style="color: white"><i class="fas fa-sign-in-alt"></i>LOGIN</a>-->
+      <a href="{{ url_for('login') }}"style="color: white"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
       {% if error %}
           <p style="color:red;">{{ error }}</p>
       {% endif %}
@@ -56,3 +58,4 @@
 </body>
 
 </html>
+

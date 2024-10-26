@@ -25,3 +25,5 @@ adicionar o campo senha que estava faltando
 * Padronização das paginas Consulta, Edit, Login e Register 
 * Atulaização codigo para BD
 * Alterei o Link de localização de postaos de vacinação para avrin em nova guia 
+* Foi implementado uma API para enviar um email de confirmação de cadastro 
+* Implementei um Script em Javascript para padronizar o numero telefone e conferir o email 
