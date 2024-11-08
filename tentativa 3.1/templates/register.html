@@ -1,18 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Responsável</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
+
 <body>
 
-    <div class="image-container"> 
+
+
+    <div class="image-container">
         <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
     </div>
-    
+
     <main class="register-container">
         <h1>Registrar Responsável</h1>
         <form class="register-form" id="registerForm" method="POST" action="/register">
@@ -31,11 +36,25 @@
             <button type="submit">Registrar</button>
         </form>
         <a href="{{ url_for('index') }}">Voltar ao Início</a>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+
+    
     </main>
 
     <!-- JavaScript para validação de formulário -->
     <script>
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
             const nome = document.getElementById('nome').value;
             const pet = document.getElementById('pet').value;
             const telefone = document.getElementById('telefone').value;
@@ -65,54 +84,12 @@
             const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             return re.test(email);
         }
+
+
+        
     </script>
+    
 
 </body>
-</html>
 
-
-<!--<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <main class="register-container">
-        <h1>Cadastrar Responsável</h1>
-        <form class="register-form" method="POST" action="/register">
-            <fieldset>
-                <legend>Dados Pessoais</legend>
-                <div class="input-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" required>
-                </div>
-                
-            </fieldset>
-            <fieldset>
-                <legend>Quantidade Pets</legend>
-                <div class="input-group">
-                    <label for="pet">Pets:</label>
-                    <input type="number" id="pet" name="pet" required>
-                </div>
-                
-            </fieldset>
-            <fieldset>
-                <legend>Contato</legend>
-                <div class="input-group">
-                    <label for="telefone">Telefone:</label>
-                    <input type="text" id="telefone" name="telefone" required>
-                </div>
-                <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-            </fieldset>
-            <button type="submit">Cadastrar</button>
-        </form>
-    </main>
-</body>
 </html>

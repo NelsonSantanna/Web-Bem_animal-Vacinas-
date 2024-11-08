@@ -1,8 +1,8 @@
-Flask==1.1.2
+Flask==2.2.2
 mysql-connector==2.2.9
 tornado==6.4
 traitlets==5.14.2
 typing_extensions==4.11.0
 urllib3==1.25.11
 wcwidth==0.2.13
-Werkzeug==3.0.1
+Werkzeug==2.3.7

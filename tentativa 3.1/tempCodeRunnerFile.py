@@ -1,24 +1,48 @@
-import json
-from mysql.connector.errors import IntegrityError
-from flask import Flask, render_template, request, redirect, send_from_directory, url_for, flash, session
-from functools import wraps
+import json 
+from MySQLdb import IntegrityError
+from flask.json import jsonify
 import mysql.connector
+from flask import Flask, render_template, request, redirect, send_from_directory, url_for, flash, session, get_flashed_messages
+from functools import wraps
 import smtplib
 from email.mime.text import MIMEText
 import uuid
 import re
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 
 def create_connection():
+
+        
     connection = mysql.connector.connect(
+
+
         host='bemanimal2.cb2sykgqiecd.us-east-2.rds.amazonaws.com',
         user='PINGranada',
         password='Univesp2024',
+        port= 3306,
         database='bem_animal2a',
-        auth_plugin='mysql_native_password'
+        auth_plugin='mysql_native_password' 
+       
+
+
+        
+
+
+    
+#        host= 'localhost',
+ #       user= 'root',        
+  #      password= '0208', # se conectar BD pela (porta 3306 Password = '0208'  )   (porta 3307 Password = ''  )
+   #     database='bem_animal2a',
+    #    auth_plugin='mysql_native_password'
+
+    
+       
+        
+                 
     )
+      
+    
     return connection
 
 def execute_query(connection, query, params=None):
@@ -46,25 +70,28 @@ def write_responsavel(responsavel):
     cursor = connection.cursor()
     try:
         cursor.execute(query, responsavel)
-        flash("Cadastro efetuado com sucesso", "success")
+        flash(f"Cadastro efetuado com sucesso", "success")
         connection.commit()
     except mysql.connector.errors.IntegrityError as e:
         connection.rollback()
         duplicate_email = extract_duplicate_email_from_error(str(e))
         if duplicate_email:
-            flash(f"O email {duplicate_email} já está cadastrado. Por favor, use outro email.", "warning")
+            flash(f"O email {duplicate_email} já está cadastrado. Por favor, use outro email.", "warning" )
+        else:
+            flash(f"Cadastro efetuado com sucesso", "success")
     except Exception as e:
-        flash("Ocorreu um erro inesperado. Por favor, tente novamente.", "danger")
-        raise
+            flash("Ocorreu um erro inesperado. Por favor, tente novamente.", "danger")
+            raise
     finally:
-        cursor.close()
-        connection.close()
+            cursor.close()
+            connection.close()  # Certifica de que a conexão está sendo fechada
 
 def extract_duplicate_email_from_error(error_message):
     match = re.search(r"Duplicate entry '([^']+)' for key 'responsavel.email'", str(error_message))
     if match:
         return match.group(1)
     return None
+
 
 def get_responsavel_by_id(id):
     connection = create_connection()
@@ -77,27 +104,28 @@ def update_responsavel(responsavel):
     connection = create_connection()
     query = """
     UPDATE responsavel
-    SET nome = %s, pet = %s, telefone = %s, email = %s, email_verified = %s, token = %s
+    SET nome = %s, pet = %s, telefone = %s, email = %s
     WHERE id = %s
     """
     cursor = connection.cursor()
     try:
-        cursor.execute(query, responsavel)  # Passa a tupla completa
+        cursor.execute(query, responsavel + (responsavel[4],))
         connection.commit()
     except:
         print(cursor.statement)
         raise
-    finally:
-        cursor.close()
-        connection.close()
+    connection.close()
 
 def delete_responsavel(id):
     connection = create_connection()
     query = "DELETE FROM responsavel WHERE id = %s"
     cursor = connection.cursor()
-    cursor.execute(query, (id,))
-    connection.commit()
-    cursor.close()
+    try:
+        cursor.execute(query, (id,))
+        connection.commit()
+    except:
+        print(cursor.statement)
+        raise
     connection.close()
 
 def check_user(email, password):
@@ -116,15 +144,15 @@ def login_required(f):
     return decorated_function
 
 def send_verification_email(email, token):
-    msg = MIMEText("Cadastro realizado com sucesso!")
-    msg['Subject'] = 'Cadastro Confirmado'
+    msg = MIMEText("Verifique seu email clicando em <a href='{}'>este link</a>".format(url_for('verify_email', token=token, _external=True)))
+    msg['Subject'] = 'Verifique seu email'
     msg['From'] = 'projetopingranada@gmail.com'
     msg['To'] = email 
 
     try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login('projetopingranada@gmail.com', 'v a k o u l d t y k i d m p q r')
+        server = smtplib.SMTP('smtp.gmail.com' , 587)
+        server.starttls()  # Habilitar TLS
+        server.login('projetopingranada@gmail.com', 'v a k o u l d t y k i d m p q r')  # Email e senha de aplicativo
         server.sendmail('projetopingranada@gmail.com', email, msg.as_string())
         server.quit()
         print("Email enviado com sucesso")
@@ -134,9 +162,29 @@ def send_verification_email(email, token):
 def generate_token():
     return str(uuid.uuid4())
 
+def execute_query_with_retry(connection, query, params=None, retry_count=3):
+    attempt = 0
+    while attempt < retry_count:
+        try:
+            return execute_query(connection, query, params)
+        except mysql.connector.errors.DatabaseError as e:
+            if e.errno == 1205:  # Código do erro para lock timeout
+                attempt += 1
+                print(f"Lock wait timeout, tentativa {attempt}/{retry_count}...")
+                if attempt >= retry_count:
+                    raise
+            else:
+                raise    
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    message = 'usuário'
+    error = request.args.get('error')
+    return render_template('index.html', message=message, error=error)
+
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory('static', path)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -146,11 +194,15 @@ def register():
         telefone = request.form['telefone']
         email = request.form['email']
         
-        token = generate_token()
+        token = generate_token()  # Gerar o token
         responsavel = (nome, pet, telefone, email, False, token)
         write_responsavel(responsavel)
+
         send_verification_email(email, token)
+
+         # Renderiza a página com o modal de sucesso
         return render_template('register.html', success=True)
+
     return render_template('register.html', success=False)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -160,7 +212,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = check_user(email, password)
-        if user and user[0][4]:
+        if user and user[0][4]:  # Verificar se o usuário está verificado
             session['logged_in'] = True
             return redirect(url_for('consulta'))
         else:
@@ -187,13 +239,7 @@ def edit(id):
         telefone = request.form['telefone']
         email = request.form['email']
         
-        email_verified = False
-        token = ''
-        
-        # Incluindo o ID e valores necessários na tupla
-        responsavel = (nome, pet, telefone, email, email_verified, token, id)
-
-        # Chama o método com a tupla completa
+        responsavel = (nome, pet, telefone, email, id)
         update_responsavel(responsavel)
         return redirect(url_for('consulta'))
 
@@ -209,16 +255,20 @@ def delete(id):
 @app.route('/verify_email/<token>')
 def verify_email(token):
     connection = create_connection()
-    query = "SELECT * FROM responsavel WHERE token = %s AND email_verified = %s"
-    responsavel = execute_query(connection, query, (token, False))
+    query = "SELECT * FROM responsavel WHERE email_verified = %s"
+    responsavel = execute_query(connection, query, (False,))
     connection.close()
     if responsavel:
-        user = responsavel[0]
-        update_responsavel((user[1], user[2], user[3], user[4], True, None, user[0]))
-        flash("Email verificado com sucesso!", "success")
-    else:
-        flash("Token inválido ou email já verificado.", "danger")
-    return render_template('verify_email.html')
+        for user in responsavel:
+            # Vamos supor que o token está vinculado a um campo específico no banco de dados (precisa garantir isso no banco de dados).
+            if user[4] == token:  # Certifique-se de que o campo de token seja o correto
+                user = (user[1], user[2], user[3], user[4], user[0], True)  # Atualiza para verificado
+                update_responsavel(user)
+                return render_template('verify_email.html', message="Email verificado com sucesso!")
+    
+    return render_template('verify_email.html', message="Token inválido ou email já verificado")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

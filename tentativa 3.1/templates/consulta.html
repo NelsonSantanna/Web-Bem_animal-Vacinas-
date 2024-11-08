@@ -6,6 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Consulta de Responsáveis</title>
+</head>
+
+<body>
+    <header>
+        <div class="image-container">
+            <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo BEM ANIMAL">
+        </div>
+    </header>
+    
+    <div class="consulta-container">
+        <h1>Consulta de Responsáveis</h1>
+        <table class="consulta-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Pet</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for responsavel in responsaveis %}
+                <tr>
+                    <td>{{ responsavel[1] }}</td>
+                    <td>{{ responsavel[2] }}</td>
+                    <td>{{ responsavel[3] }}</td>
+                    <td>{{ responsavel[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', id=responsavel[0]) }}" class="btn-edit">Editar</a>
+                        <a href="{{ url_for('delete', id=responsavel[0]) }}" class="btn-delete">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="actions">
+            <a href="{{ url_for('index') }}" class="btn-back">Voltar ao Início</a>
+            {% if session['logged_in'] %}
+            <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+<!-- <!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <div class="image-container"  > 
         <title>Consulta de Responsáveis</title>
@@ -32,7 +90,7 @@
         <tbody>
             {% for responsavel in responsaveis %}
             <tr>
-                <td>{{ responsavel[1] }}</td> <!-- a primeira coluna é o ID -->
+                <td>{{ responsavel[1] }}</td> 
                 <td>{{ responsavel[2] }}</td>
                 <td>{{ responsavel[3] }}</td>
                 <td>{{ responsavel[4] }}</td>
@@ -52,4 +110,4 @@
  
 </body>
 
-</html>
+</html> -->

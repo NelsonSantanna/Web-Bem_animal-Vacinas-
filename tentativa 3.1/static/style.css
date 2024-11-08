@@ -92,7 +92,99 @@ table {
   margin: auto;
 
 }
-.image-container{
+/* Centraliza a imagem e título */
+.consulta-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilo do cabeçalho */
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+}
+
+/* Estilo da tabela */
+.consulta-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.consulta-table th, .consulta-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.consulta-table th {
+  background-color: #1e5e28;
+  color: white;
+}
+
+.consulta-table td {
+  background-color: #fff;
+}
+
+.consulta-table tr:hover {
+  background-color: #e8f5e9;
+}
+
+/* Estilo para botões */
+.btn-edit {
+  color: #1e88e5;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #1e88e5;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.btn-edit:hover {
+  background-color: #1e88e5;
+  color: white;
+}
+
+.btn-delete {
+  color: #e53935;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #e53935;
+  border-radius: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #e53935;
+  color: white;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.btn-back, .btn-logout {
+  color: #fff;
+  background-color: #1e5e28;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 5px;
+  border: none;
+}
+
+.btn-back:hover, .btn-logout:hover {
+  background-color: #15521d;
+}
+/* .image-container{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,9 +194,38 @@ table {
   justify-content: center;
   align-items: center;
   
+} */
+
+.alert {
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  position: relative;
 }
 
-th, td {
+
+.alert-success { 
+  background-color: #d4edda; 
+  color: #155724; 
+}
+
+  .alert-danger { 
+  background-color: #f8d7da; 
+  color: #721c24; 
+}
+
+.alert-warning {       
+  background-color: #fff3cd; 
+  color: #856404; 
+}
+
+  .alert-info { 
+  background-color: #d1ecf1; 
+  color: #0c5460; 
+}
+
+
+  th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -177,7 +298,7 @@ a:hover {
 
 /* edit form styles */
 
-.edit-fom{
+.edit-form{
   margin: 3rem;
   display: flex;
   flex-direction: column;
